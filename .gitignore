@@ -10,3 +10,5 @@ rootkey.py
 upload_to_s3.py
 testimg/
 neuralsnap_upload.py
+lib/torch
+lib/lua-cjson
