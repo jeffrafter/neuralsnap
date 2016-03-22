@@ -1,0 +1,6 @@
+[submodule "lib/char-rnn"]
+	path = lib/char-rnn
+	url = https://github.com/karpathy/char-rnn
+[submodule "lib/neuraltalk2"]
+	path = lib/neuraltalk2
+	url = https://github.com/karpathy/neuraltalk2
