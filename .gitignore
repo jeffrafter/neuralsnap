@@ -12,3 +12,5 @@ testimg/
 neuralsnap_upload.py
 lib/torch
 lib/lua-cjson
+images/
+pages/

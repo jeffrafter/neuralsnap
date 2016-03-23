@@ -8,9 +8,11 @@ cd lib/torch
 source ~/.bashrc
 cd ../..
 
+brew install protobuf
 luarocks install nn
 luarocks install nngraph
 luarocks install image
+luarocks install loadcaffe
 
 mkdir lib/lua-cjson
 cd lib/lua-cjson

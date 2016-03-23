@@ -1,0 +1,3 @@
+mkdir -p pages
+mkdir -p images
+python neuralsnap/neuralsnap.py $1 $PWD/models/2016-01-12_neuraltalk2_model_01_rg.t7 $PWD/models/2016-01-12_char-rnn_model_02_rg.t7 $PWD/images

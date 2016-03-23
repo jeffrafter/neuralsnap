@@ -26,12 +26,12 @@
 
 
 # NeuralSnap
-# 
+#
 # Works by generating a caption for an image with recurrent and
 # convolutional neural networks using NeuralTalk2. That
 # (brief) caption is then expanded into a poem using a second
 # recurrent neural network.
-# 
+#
 # Ross Goodwin, 2016
 
 import os
@@ -68,8 +68,8 @@ class ImageNarrator(object):
         # a different location
 
         self.SCRIPT_PATH = os.getcwd()
-        self.NEURALTALK2_PATH = os.path.join(os.getcwd(), '..', 'neuraltalk2')
-        self.CHARRNN_PATH = os.path.join(os.getcwd(), '..', 'char-rnn')
+        self.NEURALTALK2_PATH = os.path.join(os.getcwd(), 'lib', 'neuraltalk2')
+        self.CHARRNN_PATH = os.path.join(os.getcwd(), 'lib', 'char-rnn')
 
         self.expansion_obj_list = list()
         self.caption_list = list()
@@ -113,7 +113,7 @@ class ImageNarrator(object):
 
         with open(self.NEURALTALK2_PATH+'/vis/vis.json') as caption_json:
             caption_obj_list = json.load(caption_json)
-            
+
         caption_obj_list *= self.num_steps
 
 
@@ -128,10 +128,10 @@ class ImageNarrator(object):
             obj = caption_obj_list[i]
             caption = obj['caption']
             prepped_caption = caption[0].upper() + caption[1:]
-            
+
             temp = str((i+1.0)/float(self.num_steps))
             print "EXPANDING AT TEMPERATURE " + temp
-            
+
             rnn_cmd_list = [
                 'th',
                 'sample.lua',
@@ -153,12 +153,12 @@ class ImageNarrator(object):
                 stdout=subprocess.PIPE
             )
             expansion = rnn_proc.stdout.read()
-            
+
             self.expansion_obj_list.append({
                 'id': obj['image_id'],
                 'text': expansion
             })
-            
+
             self.caption_list.append((prepped_caption, '<span style="color:'+self.highlight_color+';">'+prepped_caption+'</span>'))
 
         # Back to original working directory
@@ -202,7 +202,7 @@ class ImageNarrator(object):
         def add_span(exp, tup):
             original, modified = map(lambda x: x.decode('utf8').encode('ascii', 'xmlcharrefreplace'), tup)
             return exp.replace(original, modified)
-            
+
         final_exps = map(lambda (x,y): add_span(x,y), exps_tups)
 
 
@@ -217,7 +217,7 @@ class ImageNarrator(object):
 
         with open(self.SCRIPT_PATH+'/template.html', 'r') as tempfile:
             html_temp_str = tempfile.read()
-            
+
         html_temp = Template(html_temp_str)
         html_result = html_temp.substitute(title=self.output_title, body=body_html)
         html_fp = '%s/pages/%s.html' % (self.SCRIPT_PATH, re.sub(r'\W+', '_', self.output_title))
@@ -232,7 +232,7 @@ class ImageNarrator(object):
 
         if self.upload:
             self.url = upload(html_fp)
-    
+
 
 if __name__ == '__main__':
     # Start Clock
